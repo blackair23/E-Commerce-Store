@@ -4,20 +4,30 @@ import logo from '../../../images/logo.png';
 export const Header = () => {
     return (
         <header>
-            <img className={HeaderCSS.logo} src={logo} alt="Market" />
+            <div className={HeaderCSS.logoContainer}>
+                <div className={HeaderCSS['burger-menu']}>
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+                <img className={HeaderCSS.logo} src={logo} alt="Market" />
+            </div>
             <nav>
+                {/* eslint-disable-next-line */}
                 <ul role="list">
-                    <li>Essensials</li>
-                    <li>Martketing Materials</li>
+                    <li>Essentials</li>
+                    <li>Martketing</li>
                     <li>Eurolife</li>
                 </ul>
             </nav>
             <div className={HeaderCSS.user}>
-                    <div>
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    </div>
+                {/* eslint-disable-next-line */}
+                <ul role="list">
+                    <li><i className="fa-solid fa-magnifying-glass"></i></li>
+                    <li><i className="fa-solid fa-cart-shopping"></i></li>
                     <button className={HeaderCSS.profile}>Profile</button>
-                </div>
+                </ul>
+
+                    
+            </div>
         </header>
     )
 };

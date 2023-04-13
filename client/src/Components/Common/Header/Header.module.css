@@ -7,16 +7,16 @@ header{
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 10px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
 }
 
-nav ul {
+ul {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
-nav ul li{
+ul li{
     cursor: pointer;
 }
-nav ul li:not(:last-child){
+ul li:not(:last-child){
     margin-right: 20px;
    
 }
@@ -47,3 +47,25 @@ nav ul li:not(:last-child){
     border: 2px solid #007c57;
     color: #007c57;
 }
+.burger-menu{
+    display: none;
+    font-size: 20px;
+}
+.logoContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+}
+
+@media only screen and (max-width: 550px) {
+    nav {
+      display: none;
+    }
+    .burger-menu{
+        display: block;
+    }
+    button{
+        display: none;
+    }
+  }

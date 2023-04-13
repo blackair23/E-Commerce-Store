@@ -1,3 +1,20 @@
 h1{
     color: aqua;
 }
+footer{
+    margin-bottom: 0;
+    margin-top: auto;
+}
+
+footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 30px;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+}
+
+.copy{
+    text-align: center;
+}
