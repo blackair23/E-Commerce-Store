@@ -65,7 +65,7 @@ ul li:not(:last-child){
     .burger-menu{
         display: block;
     }
-    button{
+    .profile{
         display: none;
     }
   }

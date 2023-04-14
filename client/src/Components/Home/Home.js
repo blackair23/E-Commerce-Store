@@ -1,5 +1,11 @@
+import { Products } from '../Products/Products';
+import style from './Home.module.css';
+
 export const Home = () => {
     return (
-        <h2>Home</h2>
+        <section id={style.home}>
+            <h2>All products</h2>
+            <Products></Products>
+        </section>
     )
 }
