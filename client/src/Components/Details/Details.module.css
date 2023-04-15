@@ -1,15 +1,12 @@
 #details{
-    /* background-color: aqua; */
     display: flex;
     flex-direction: row;
     margin: 50px auto;
 }
 
 .imagePreviwe img{
-    /* width: 500px; */
     max-width: 500px;
     max-height: 500px;
-    /* object-fit: cover; */
     overflow: hidden;
 }
 .addToCart{
@@ -67,14 +64,12 @@ form input{
 
 @media only screen and (max-width: 800px) {
     #details{
-        /* background-color: aqua; */
         flex-direction: column;
         padding: 0;
         margin: 50px auto;
     }
     .imagePreviwe img{
         width: 100%;
-        /* object-fit: cover; */
         overflow: hidden;
     }
   }
