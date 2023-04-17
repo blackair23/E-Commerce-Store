@@ -23,15 +23,26 @@
     color: #007c57;
     cursor: pointer;
     font-size: 14px;
+    z-index: 10;
+
 }
 
-.items article{
+.cartItem{
     border-bottom: 1px solid #505050 ;
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 10px;
+    /* gap: 10px; */
+    width: 100%;
     justify-content: space-between;
+}
+
+.cartItem .quantyti input{
+    background-color: #e9e9ed;
+    margin: -20px;
+    width: 50px;
+    height: 25px;
+    z-index: 0;
 }
 .items article img{
     width: 100px;
@@ -46,6 +57,7 @@
     display: flex;
     flex-direction: row;
     gap: 10px;
+    align-items: center;
 }
 .quantyti input{
     all: unset;

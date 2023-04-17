@@ -16,7 +16,7 @@ export const Details = () => {
             <form>
                 <label htmlFor="quantity">Quatity:</label>
                 <input name="quantity" type="number" />
-            <button className={style.btn}>Add to Cart</button>  
+            <button className="btn">Add to Cart</button>  
             </form>
         </div>
         </section>

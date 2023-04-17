@@ -6,7 +6,7 @@ export const Header = () => {
         <header>
             <div className={HeaderCSS.logoContainer}>
                 <div className={HeaderCSS['burger-menu']}>
-                    <i class="fa-solid fa-bars"></i>
+                    <i className="fa-solid fa-bars"></i>
                 </div>
                 <img className={HeaderCSS.logo} src={logo} alt="Market" />
             </div>
