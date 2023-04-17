@@ -1,0 +1,39 @@
+#create{
+    margin: 50px auto;
+    padding: 15px 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 8px;
+}
+.createForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: flex-start; */
+    width: 250px;
+    /* margin: 50px auto; */
+}
+
+/* .createForm>*{
+    margin: 5px 0px;
+} */
+
+.formElement{
+    display: flex;
+    flex-direction: column;
+    margin: 5px 0px;
+}
+
+.select{
+    border: none;
+    padding: 5px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    
+}
+#create input{
+    border: none;
+    background-color: #e9e9ed;
+    border-radius: 4px;
+    padding: 2px 3px;
+
+}

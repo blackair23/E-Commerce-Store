@@ -35,18 +35,6 @@
     border-bottom: 1px solid #6b6b6b;
 }
 
-.btn{
-    width: 100%;
-    background-color: #007c57;
-    border: 2px solid #007c57;
-    color: #fff;
-    padding: 10px 30px;
-}
-.btn:hover{
-    background-color: transparent;
-    color: #007c57;
-    font-weight: bold;
-}
 form{
     margin-top: 25px;
     width: 100%;
