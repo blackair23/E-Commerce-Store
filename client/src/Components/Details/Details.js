@@ -1,32 +1,36 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import style from './Details.module.css';
-import { getDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 // import { COLLECTION } from '../../config/collection';
 import { db } from '../../config/firebase';
+import { useParams } from 'react-router-dom';
 export const Details = () => {
-
+    const { id }= useParams();
+    const [product, setProduct] = useState('');
+ 
     useEffect(() => {
-        getDoc(db, 'products', '5NTJapMzXHYQi5oY8AU5')
+        getDoc(doc(db, 'products', id))
             .then((res) => {
-                console.log(res)
+                const filterdData = res.data();
+                setProduct(filterdData);
             })
             .catch((err)=>{
                 console.log(err)
             })
-    }, [])
+    }, [id])
 
     return(
         <section id={style.details}> 
         <div className={style.imagePreviwe}>
-            <img src="https://graweshop.at/media/catalog/product/cache/660767a06980f4089a4bbeb62065528f/j/a/jacke_1.jpg" alt="" />
+            <img src={product.img} alt="" />
         </div>
         <div className={style.addToCart}>
             
-            <h3>Jacket</h3>
+            <h3>{product.name}</h3>
             <p className={style.category}>Category: over 48 600</p>
 
             <p>
-                Unisex down-look jacket with hood; fine hem at waist and sleeves; two outer pockets. Inside: polyester padding with down effect.
+                {product.description}
             </p>       
             <form>
                 <label htmlFor="quantity">Quatity:</label>

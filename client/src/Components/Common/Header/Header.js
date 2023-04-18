@@ -6,7 +6,6 @@ import { Link, useNavigate } from 'react-router-dom';
 
 
 export const Header = ({ user }) => {
-    console.log('userfrom Header ->', user);
     const navigate = useNavigate();
     const logOut = () => {
         try {

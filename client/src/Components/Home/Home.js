@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 
 export const Home = () => {
     const [products, setProducts] = useState(null);
-    console.log(products)
     useEffect(() => {
         const getProducts = async () => {
             try {
@@ -29,3 +28,4 @@ export const Home = () => {
         </section>
     )
 }
+
