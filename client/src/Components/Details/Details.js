@@ -1,5 +1,20 @@
+import { useEffect } from 'react';
 import style from './Details.module.css';
+import { getDoc } from 'firebase/firestore';
+// import { COLLECTION } from '../../config/collection';
+import { db } from '../../config/firebase';
 export const Details = () => {
+
+    useEffect(() => {
+        getDoc(db, 'products', '5NTJapMzXHYQi5oY8AU5')
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+    }, [])
+
     return(
         <section id={style.details}> 
         <div className={style.imagePreviwe}>

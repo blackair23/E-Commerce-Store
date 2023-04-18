@@ -20,3 +20,8 @@ main{
     color: #007c57;
     font-weight: bold;
 }
+
+a{
+    all:unset;
+    cursor: pointer;
+}

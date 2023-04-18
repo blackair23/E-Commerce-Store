@@ -10,13 +10,27 @@ import { Home } from './Components/Home/Home';
 import { Login } from './Components/Login/Login';
 import { Cart } from './Components/Cart/Cart';
 import { Profile } from './Components/Profile/Profile';
+import { useState } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './config/firebase';
 
 function App() {
+  const [user, setUser] = useState({});
+
+  onAuthStateChanged(auth, (user) => {
+    if(user){
+        setUser(user)
+    } else {
+        setUser(null)
+        console.log('User is Sign Out');
+    }
+  });
+
   return (
     <main>
-      <Header></Header>
+      <Header user={user}></Header>
         <Routes>
-          <Route path='/' element={<Home/>}/>
+          <Route path='/' element={<Home user={user}/>}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/create' element={<Create/>}/>
           <Route path='/catalog/:id' element={<Details/>}/>

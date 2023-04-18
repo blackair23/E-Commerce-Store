@@ -1,11 +1,14 @@
 import style from './Login.module.css';
 import { auth } from '../../config/firebase';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 export const Login = () => {
+
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -13,9 +16,11 @@ export const Login = () => {
     const singIn = (e) => {
         e.preventDefault();
         console.log(email, password);
-        createUserWithEmailAndPassword(auth, email, password)
+        // createUserWithEmailAndPassword(auth, email, password)
+        signInWithEmailAndPassword(auth, email, password)
             .then((res) => {
                 console.log(res)
+                navigate('/');
             })
             .catch((err)=> {
                 console.log(err)
