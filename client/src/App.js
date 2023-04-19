@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './config/firebase';
 import { AuthContext } from './context/AuthContext';
+import { Guard } from './Components/Common/Guard/Guard';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -31,19 +32,22 @@ function App() {
     return () => {
       unsubscribe();
     }
-  }, [])
-    console.log('From App -> ', user)
+  }, []);
+
+
   return (
     <main>
       <AuthContext.Provider value={{user}}>
       <Header></Header>
         <Routes>
-          <Route path='/' element={<Home/>}/>
           <Route path='/login' element={<Login/>}/>
-          <Route path='/create' element={<Create/>}/>
-          <Route path='/catalog/:id' element={<Details/>}/>
-          <Route path='/profile' element={<Profile/>}/>
-          <Route path='/cart' element={<Cart/>}/>
+          <Route element={<Guard></Guard>}>
+            <Route path='/' element={<Home/>}/>
+            <Route path='/create' element={<Create/>}/>
+            <Route path='/catalog/:id' element={<Details/>}/>
+            <Route path='/profile' element={<Profile/>}/>
+            <Route path='/cart' element={<Cart/>}/>
+          </Route>
         </Routes>
       <Footer></Footer>
       </AuthContext.Provider>
