@@ -57,6 +57,24 @@ ul li:not(:last-child){
     gap: 10px;
     align-items: center;
 }
+.shopping{
+    margin: 0 25px;
+}
+.badge{
+    position: absolute;
+    top: 20px;
+    right: 225px;
+    background-color: rgb(190, 84, 84);
+    color: #fff;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
 
 @media only screen and (max-width: 550px) {
     nav {
