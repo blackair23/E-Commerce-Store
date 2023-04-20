@@ -1,0 +1,24 @@
+#cart{
+   padding: 10px 30px; 
+   max-width: 600px;
+}
+.header{
+    margin-top: 30px;
+    border-bottom: 1px solid #505050;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.items article img{
+    width: 100px;
+    height: 100px;
+}
+
+@media only screen and (max-width: 380px) {
+    #cart{
+        padding: 0; 
+     }
+  }
+
+ 

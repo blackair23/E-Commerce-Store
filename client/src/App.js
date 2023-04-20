@@ -8,7 +8,7 @@ import { Create } from './Components/Create/Create';
 import { Details } from './Components/Details/Details';
 import { Home } from './Components/Home/Home';
 import { Login } from './Components/Login/Login';
-import { Cart } from './Components/Cart/Cart';
+import { Cart } from './Components/ShoppingCart/Cart/Cart';
 import { Profile } from './Components/Profile/Profile';
 import { useCallback, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -88,22 +88,19 @@ function App() {
     <main>
       <AuthContext.Provider value={{user}}>
         <CartContext.Provider value={{cart, addToCartHandler, setCart}}>
-
-        {/* <CartContext.Provider value={{cart, addToCartHandler, setCart}}> */}
-      <Header></Header>
-        <Routes>
-          <Route path='/login' element={<Login/>}/>
-          <Route element={<Guard></Guard>}>
-            <Route path='/' element={<Home/>}/>
-            <Route path='/create' element={<Create/>}/>
-            <Route path='/catalog/:id' element={<Details/>}/>
-            <Route path='/profile' element={<Profile/>}/>
-            <Route path='/cart' element={<Cart/>}/>
-          </Route>
-        </Routes>
-      <Footer></Footer>
+          <Header></Header>
+            <Routes>
+              <Route path='/login' element={<Login/>}/>
+              <Route element={<Guard></Guard>}>
+                <Route path='/' element={<Home/>}/>
+                <Route path='/create' element={<Create/>}/>
+                <Route path='/catalog/:id' element={<Details/>}/>
+                <Route path='/profile' element={<Profile/>}/>
+                <Route path='/cart' element={<Cart/>}/>
+              </Route>
+            </Routes>
+          <Footer></Footer>
         </CartContext.Provider>
-      {/* </CartContext.Provider> */}
       </AuthContext.Provider>
     </main>
   );
