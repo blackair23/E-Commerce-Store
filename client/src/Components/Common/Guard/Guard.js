@@ -7,12 +7,12 @@ export const Guard = () => {
     const { user } = useContext(AuthContext);
 
     useEffect(() => {
-        if(!user?.uid){
+        if(!user?._id){
             navigate('/login');
             // return
         }
     }, [user, navigate]);
 
-    return (user?.uid ? <Outlet></Outlet> : null);
+    return (user?._id ? <Outlet></Outlet> : null);
 
 }

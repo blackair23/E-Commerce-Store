@@ -10,22 +10,19 @@ import { Home } from './Components/Home/Home';
 import { Login } from './Components/Login/Login';
 import { Cart } from './Components/ShoppingCart/Cart/Cart';
 import { Profile } from './Components/Profile/Profile';
-import { useCallback, useEffect } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth, db } from './config/firebase';
+import { useCallback } from 'react';
 import { AuthContext } from './context/AuthContext';
 import { Guard } from './Components/Common/Guard/Guard';
-import { doc, getDoc } from 'firebase/firestore';
 import { useLocalStorage } from './Hooks/useLocalStorage';
 import { CartContext } from './context/cartContext';
+import { Register } from './Components/Register/Register';
 
 function App() {
-  // const [user, setUser] = useState(null);
 
   const [user, setUser] = useLocalStorage('auth', {});
   const [cart, setCart] = useLocalStorage('cart', []);
 
-
+  //Auth handlers
   const userLogin = useCallback((authData) => {
     if (authData) {
       setUser(authData);
@@ -36,36 +33,7 @@ function App() {
     setUser({});
   }, [setUser]);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if(user){
-        userLogin(user)
-        getDoc(doc(db, 'users', user.uid))
-        .then((res) => {
-          console.log('res', res.data())
-          if(res.data()){
-            console.log('res', res.data().role)
-            // setUser([res.data().role])
-            let role = res.data().role;
-            user = {...user, role}
-            userLogin(user)   
-          }
-        })
-        .catch((err)=> {
-            console.log(err.message)
-        })
-      } else {
-        userLogout()
-        console.log('User is Sign Out');
-      }
-    });
-
-    return () => {
-      unsubscribe();
-    }
-  }, []);
-
-
+  //Cart handler
   const addToCartHandler = (product) => {
     let isExisting = cart?.find((x) => x._id === product._id);
     const quantity = isExisting ? product.quantity + 1 : 1;
@@ -86,11 +54,12 @@ function App() {
 
   return (
     <main>
-      <AuthContext.Provider value={{user}}>
+      <AuthContext.Provider value={{user, userLogin, userLogout}}>
         <CartContext.Provider value={{cart, addToCartHandler, setCart}}>
           <Header></Header>
             <Routes>
               <Route path='/login' element={<Login/>}/>
+              <Route path='/register' element={<Register/>}/>
               <Route element={<Guard></Guard>}>
                 <Route path='/' element={<Home/>}/>
                 <Route path='/create' element={<Create/>}/>

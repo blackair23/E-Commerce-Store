@@ -1,13 +1,15 @@
 import style from './Login.module.css';
-import { auth } from '../../config/firebase';
+import { auth, db } from '../../config/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
+import { doc, getDoc } from 'firebase/firestore';
 
 
 export const Login = () => {
-
+    const { userLogin } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const [email, setEmail] = useState("")
@@ -20,12 +22,20 @@ export const Login = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then((res) => {
                 console.log(res)
-                navigate('/');
+                userLogin(res);
+                getDoc(doc(db, 'users', res.user.uid))
+                    .then((res) => {
+                        userLogin(res.data());
+                        navigate('/');
+                    })
+                    .catch((err)=> {
+                        alert(err.message)
+                    });
             })
             .catch((err)=> {
-                console.log(err)
-            })
-    }
+                alert(err.message);
+            })}
+    
     return (
         <section id={style.login}>
             <h2>Customer Login</h2>

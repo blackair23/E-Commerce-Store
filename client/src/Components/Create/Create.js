@@ -13,11 +13,11 @@ export const Create = () => {
         description: '',
         img: '',
         stock: '',
-        startNumber: '',
-        category: 'all',
+        category: '16400',
     });
 
     const onChangeHandler = (e) => {
+        console.log(e.target.value);
         setValues(state => ({...state, [e.target.name]: e.target.value}))
     }
 
@@ -38,40 +38,42 @@ export const Create = () => {
             <form onSubmit={onSubmit} className={style.createForm}>
                 <div className={style.formElement}>
                     <label htmlFor="name">Name:</label>
-                    <input onChange={onChangeHandler} type="text" name="name" />
+                    <input onChange={onChangeHandler} value={values.name} type="text" name="name" />
                 </div>
 
                 <div className={style.formElement}>
                     <label htmlFor="price">Price:</label>
-                    <input onChange={onChangeHandler} type="number" name="price" />
+                    <input onChange={onChangeHandler} value={values.price} type="number" name="price" />
                 </div>
 
                 <div className={style.formElement}>
                     <label htmlFor="description">Description:</label>
-                    <input onChange={onChangeHandler} type="text" name="description" />
+                    <input onChange={onChangeHandler} value={values.description} type="text" name="description" />
                 </div>
 
                 <div className={style.formElement}>
                     <label htmlFor="img">ImageURL:</label>
-                    <input onChange={onChangeHandler} type="text" name="img" />
+                    <input onChange={onChangeHandler} value={values.img} type="text" name="img" />
                 </div>
 
                 <div className={style.formElement}>
                     <label htmlFor="stock">Stock:</label>
-                    <input onChange={onChangeHandler} type="number" name="stock" />
+                    <input onChange={onChangeHandler} type="number" value={values.stock} name="stock" />
                 </div>
-
-                <div className={style.formElement}>
+                
+                {/* <div className={style.formElement}>
                     <label htmlFor="startNumber">Start Number:</label>
-                    <input onChange={onChangeHandler} type="number" name="startNumber" />
-                </div>
+                    <input onChange={onChangeHandler} value={values.startNumber} type="number" name="startNumber" />
+                </div> */}
 
                 <div className={style.formElement}>
                     <label htmlFor="category">Category:</label>
-                    <select onChange={onChangeHandler} className={style.select} name="category" id="">Category
-                        <option value="all">All</option>
-                        <option value="brokers">Brokers</option>
-                        <option value="agents">Agents</option>
+                    <select onChange={onChangeHandler} className={style.select} value={values.category} name="category" id="">Category
+                        <option value="16400"> 16 400 </option>
+                        <option value="16400 - 24600">16 400-24 600</option>
+                        <option value="24600 - 32600">24 600-32 600</option>
+                        <option value="32600 - 48600">32 600-48 600</option>
+                        <option value="48 600">48 600</option>
                     </select>
                 </div>
 

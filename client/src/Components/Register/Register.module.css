@@ -1,0 +1,32 @@
+#register{
+    height: 100%;
+    width: 100%;
+    padding: 10px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 30px auto;
+}
+#register h2{
+    width: 250px;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    /* justify-content:; */
+    width: 250px;
+    margin-top: 25px;
+}
+.btn{
+    margin-top: 15px;
+    background-color: #007c57;
+    border: 2px solid #007c57;
+    color: #fff;
+}
+
+.btn:hover{
+    color: #007c57;
+    background-color: transparent;
+    font-weight: bold;
+}

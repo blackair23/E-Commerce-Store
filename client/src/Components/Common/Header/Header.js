@@ -9,12 +9,13 @@ import { AuthContext } from '../../../context/AuthContext';
 
 export const Header = () => {
 
-    const { user } = useContext(AuthContext);
+    const { user, userLogout } = useContext(AuthContext);
 
     const navigate = useNavigate();
     const logOut = () => {
         try {
             signOut(auth);
+            userLogout();
             navigate('/login');
         } catch (error) {
             console.log(error.message)
@@ -29,12 +30,12 @@ export const Header = () => {
                 </div>
                 <Link to='/'><img className={HeaderCSS.logo} src={logo} alt="Market" /></Link>
             </div>
-            {user?.uid ? 
+            {user?._id ? 
             <>
             <nav>
                 {/* eslint-disable-next-line */}
                 <ul role="list">
-                    {user.role? 
+                    {user.role === "admin" ? 
                     <li><Link to='/create'>Create</Link></li>
                     : 
                     <li>NoOne</li>
