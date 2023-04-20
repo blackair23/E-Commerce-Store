@@ -20,7 +20,7 @@ export const Header = () => {
             console.log(error.message)
         }
     }
-
+   
     return (
         <header>
             <div className={HeaderCSS.logoContainer}>
@@ -29,12 +29,16 @@ export const Header = () => {
                 </div>
                 <Link to='/'><img className={HeaderCSS.logo} src={logo} alt="Market" /></Link>
             </div>
-            {user ? 
+            {user?.uid ? 
             <>
             <nav>
                 {/* eslint-disable-next-line */}
                 <ul role="list">
-                <li><Link to='/create'>Create</Link></li>
+                    {user.role? 
+                    <li><Link to='/create'>Create</Link></li>
+                    : 
+                    <li>NoOne</li>
+                    }
                     <li>Martketing</li>
                     <li>Eurolife</li>
                 </ul>
