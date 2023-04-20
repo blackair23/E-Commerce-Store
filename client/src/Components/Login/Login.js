@@ -18,7 +18,6 @@ export const Login = () => {
     const singIn = (e) => {
         e.preventDefault();
         console.log(email, password);
-        // createUserWithEmailAndPassword(auth, email, password)
         signInWithEmailAndPassword(auth, email, password)
             .then((res) => {
                 console.log(res)
