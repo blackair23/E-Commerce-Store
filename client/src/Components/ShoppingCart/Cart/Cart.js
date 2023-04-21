@@ -5,6 +5,11 @@ import { CartContext } from '../../../context/cartContext';
 
 export const Cart = () => {
     const { cart } = useContext(CartContext);
+
+    const checkOut = () => {
+        console.log('checkout ->',cart)
+    }
+
     return (
         <section id={style.cart}>
             <h2>Shopping Cart</h2>
@@ -16,7 +21,7 @@ export const Cart = () => {
             </div>
             <div className={style.items}>
                  {cart.map(c => <CartItems key={c._id} current={c}></CartItems>)} 
-                <button className="btn">Checkout</button>
+                <button onClick={checkOut} className="btn">Checkout</button>
             </div>
                 </>
                 : 

@@ -1,15 +1,24 @@
 import { useContext, useEffect, useState } from 'react';
 import style from './Details.module.css';
 import { doc, getDoc } from 'firebase/firestore';
-// import { COLLECTION } from '../../config/collection';
 import { db } from '../../config/firebase';
 import { useParams } from 'react-router-dom';
 import { CartContext } from '../../context/cartContext';
 export const Details = () => {
     const { addToCartHandler } = useContext(CartContext);
     const { id }= useParams();
+
     const [product, setProduct] = useState('');
-    
+    const [value, setValue] = useState(1);
+
+    const onChangeHandler = (e) => {
+        if(Number(e.target.value) < 1){
+            setValue(1)
+        } else {
+            setValue(e.target.value)
+        }
+    }
+
     useEffect(() => {
         getDoc(doc(db, 'products', id))
             .then((res) => {
@@ -20,11 +29,13 @@ export const Details = () => {
             .catch((err)=>{
                 console.log(err)
             })
-    }, [id])
+    }, [id]);
+
     console.log(product)
     const addToCart = (e) => {
         e.preventDefault();
-        addToCartHandler(product)
+        console.log('quantity ->', value)
+        addToCartHandler(product, value)
     }
 
     return(
@@ -42,7 +53,7 @@ export const Details = () => {
             </p>       
             <form onSubmit={addToCart}>
                 <label htmlFor="quantity">Quatity:</label>
-                <input name="quantity" type="number" />
+                <input  onChange={onChangeHandler} value={value} name="quantity" type="number" />
             <button className="btn">Add to Cart</button>  
             </form>
         </div>

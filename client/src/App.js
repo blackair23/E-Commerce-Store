@@ -34,19 +34,22 @@ function App() {
   }, [setUser]);
 
   //Cart handler
-  const addToCartHandler = (product) => {
+  const addToCartHandler = (product, value) => {
+   
     let isExisting = cart?.find((x) => x._id === product._id);
-    const quantity = isExisting ? product.quantity + 1 : 1;
+    const quantity = isExisting ? Number(isExisting.quantity) + Number(value) : Number(value);
     let cartData;
-    if(quantity > product.stock) {
+   
+    if(quantity > Number(product.data.stock)) {
       alert("Product is out of stock")
       return;
     }
+
     if(!isExisting) {
-      product.quantity = 1;
+      product.quantity = Number(value);
       cartData = [...cart, product];
     }else{
-      isExisting.quantity += 1;
+      isExisting.quantity += Number(value);
       cartData = cart.map((item) => item._id === isExisting._id ? isExisting : item);
     }
     setCart(cartData);
