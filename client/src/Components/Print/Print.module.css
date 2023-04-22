@@ -20,7 +20,10 @@
 }
 .page {
     background: white;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    /* justify-content: space-between; */
     margin: 20px auto;
     margin-bottom: 0.5cm;
     box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
@@ -33,6 +36,17 @@
     width: 21cm;
     height: 29.7cm; 
 }
+
+.page .sign{
+    display: flex;
+    flex-direction: row;
+    /* margin-bottom: 30px; */
+    margin: auto 50px 50px 30px;
+    /* margin-top: auto; */
+    justify-content: space-between;
+    align-items: center;
+}
+
 
 @media print {
     body, .page {

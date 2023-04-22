@@ -47,7 +47,7 @@ export const Details = () => {
         <div className={style.addToCart}>
             
             <h3>{product.data?.name}</h3>
-            {product.data.category ? 
+            {product.data?.category ? 
             <p className={style.category}>Category: {product.data?.category}</p>
             :
             ""
@@ -61,6 +61,9 @@ export const Details = () => {
                 <input  onChange={onChangeHandler} value={value} name="quantity" type="number" />
             <button className="btn">Add to Cart</button>  
             </form>
+            <div className={style.functions}>
+
+            </div>
         </div>
         </section>
     )

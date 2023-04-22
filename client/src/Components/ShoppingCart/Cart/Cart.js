@@ -3,7 +3,7 @@ import style from './Cart.module.css';
 import { CartItems } from '../CartItems/CartItems';
 import { CartContext } from '../../../context/cartContext';
 import { AuthContext } from '../../../context/AuthContext';
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { addDoc, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { db } from '../../../config/firebase';
 
 export const Cart = () => {
@@ -21,10 +21,25 @@ export const Cart = () => {
             timestamp: serverTimestamp(),
         }
         console.log('checkout ->',checkout);
+
+        // checkout.orderedProd.map((c) => {
+        //     console.log(c._id, '\n', c.quantity, '\n', c.data.stock,'\n', 'total -> ',Number(c.data.stock) - Number(c.quantity)); 
+        //     console.log(c._id, '\n', c.data.startNumber, '\n', c.quantity,'\n', 'total -> ',Number(c.data.startNumber) + Number(c.quantity - 1))
+        // });
         
         try {
+            
             let ref = collection(db, 'orders');
             await addDoc(ref, checkout);
+
+            checkout.orderedProd.map(async (c) => {
+                const ref = doc(db, 'utils', c._id)
+                await updateDoc(ref, { 
+                    startNumber: Number(c.data.startNumber) + Number(c.quantity - 1),
+                    stock: Number(c.data.stock) - Number(c.quantity),
+                })
+            })
+
             setCart([]);
         } catch (err) {
             alert(err.message);

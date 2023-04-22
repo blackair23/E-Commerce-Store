@@ -47,7 +47,7 @@ export const Print = () => {
                     <td data-label="N">{ i + 1 }</td>
                     <td data-label="Вид">{ o.data.name }</td>
                     <td data-label="Пореден номер от">{ o.data.startNumber >= 0  ? o.data.startNumber : " - "}</td>
-                    <td data-label="До">{ o.data.startNumber >= 0 ? Number(o.data.startNumber) + (Number(o.quantity)) : " - "}</td>
+                    <td data-label="До">{ o.data.startNumber >= 0 ? Number(o.data.startNumber) + (Number(o.quantity) - 1) : " - "}</td>
                     <td data-label="брой">{ o.quantity }</td>
                     {/* <td data-label="брой"><Link to={`/order/${o._id}`}>Info</Link></td> */}
                 </tr>
@@ -57,6 +57,25 @@ export const Print = () => {
                 }
             </tbody>
             </table>
+
+            <div className={styles.sign}>
+                <div className={styles.left}>
+                    <p>
+                        ПРЕДАЛ за ГРАВЕ - Централа:	
+                    </p>
+                    <p>
+                        /.............................................../
+                    </p>
+                </div>
+                <div className={styles.right}>
+                    <p>
+                        ПРИЕЛ за офис {order && order.data.city}:	
+                    </p>
+                    <p>
+                        /............................................./
+                    </p>
+                </div>
+            </div>
             </div>
         </section>
     )
