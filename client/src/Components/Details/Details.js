@@ -47,7 +47,11 @@ export const Details = () => {
         <div className={style.addToCart}>
             
             <h3>{product.data?.name}</h3>
-            <p className={style.category}>Category: over 48 600</p>
+            {product.data.category ? 
+            <p className={style.category}>Category: {product.data?.category}</p>
+            :
+            ""
+            }
 
             <p>
                 {product.data?.description}
