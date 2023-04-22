@@ -49,6 +49,41 @@
     margin: 10px 0px;
 }
 
+#details .adminPanel{
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+#details .adminPanel .edit{
+    width: 49.5%;
+    padding: 10px 30px;
+    background-color: #007c57;
+    color: #fff;
+    font-weight: bold;
+    border: 2px solid #007c57;
+
+}
+#details .adminPanel .del{
+    width: 49.5%;
+    padding: 10px 30px;
+    background-color: #a55555;
+    color: #fff;
+    font-weight: bold;
+    border: 2px solid #a55555;
+}
+#details .adminPanel .del:hover{
+    background-color: transparent;
+    color: #a55555;
+}
+
+#details .adminPanel .edit:hover{
+    background-color: transparent;
+    color: #007c57;
+}
+
+
 @media only screen and (max-width: 800px) {
     #details{
         flex-direction: column;

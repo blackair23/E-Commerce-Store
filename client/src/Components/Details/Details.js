@@ -1,16 +1,18 @@
 import { useContext, useEffect, useState } from 'react';
 import style from './Details.module.css';
-import { doc, getDoc } from 'firebase/firestore';
+import { deleteDoc, doc, getDoc } from 'firebase/firestore';
 import { db } from '../../config/firebase';
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { CartContext } from '../../context/cartContext';
+import { AuthContext } from '../../context/AuthContext';
 export const Details = () => {
     const { addToCartHandler } = useContext(CartContext);
+    const { user } = useContext(AuthContext);
     const { id, category }= useParams();
     console.log(id, category);
     const [product, setProduct] = useState('');
     const [value, setValue] = useState(1);
-
+    const navigate = useNavigate();
     const onChangeHandler = (e) => {
         if(Number(e.target.value) < 1){
             setValue(1)
@@ -39,6 +41,22 @@ export const Details = () => {
         addToCartHandler(product, value)
     }
 
+    const deleteHandler = async () => {
+
+        try {
+            const ref = doc(db, category, id);
+            await deleteDoc(ref);
+            if(category === 'utils'){
+                navigate(`/utils`)
+            } else {
+                navigate(`/`)
+            }
+            alert('deleted');
+        } catch (err) {
+            alert(err.message);
+        }
+    }
+
     return(
         <section id={style.details}> 
         <div className={style.imagePreviwe}>
@@ -61,9 +79,13 @@ export const Details = () => {
                 <input  onChange={onChangeHandler} value={value} name="quantity" type="number" />
             <button className="btn">Add to Cart</button>  
             </form>
-            <div className={style.functions}>
-
-            </div>
+            {
+                user.role === 'admin' &&
+                <div className={style.adminPanel}>
+                    <button className={style.edit}><Link to={`/edit/${id}`}>Edit </Link></button>
+                    <button onClick={deleteHandler} className={style.del}>Delete</button>
+                </div>
+            }
         </div>
         </section>
     )

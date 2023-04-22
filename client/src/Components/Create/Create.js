@@ -34,12 +34,13 @@ export const Create = () => {
         }
         try {
             let ref = collection(db, values.product)
-            await addDoc(ref, values);
-            navigate('/');
+            const u = await addDoc(ref, values);
+            navigate(`/catalog/${u._key.path.segments[1]}/${values.product}`);
         } catch (err) {
             console.log(err)            
         }
     }
+    // segments: Array [ "awards", "kwY7VGBSE99IIpAyU92m" ]
 
     return (
         <section id={style.create}>
