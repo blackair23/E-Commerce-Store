@@ -88,11 +88,11 @@ export const Create = () => {
                     <div className={style.formElement}>
                     <label htmlFor="category">Category:</label>
                     <select onChange={onChangeHandler} className={style.select} value={values.category} name="category" id="">Category
-                        <option value="16400"> 16 400 </option>
+                        <option value="under 16400"> 16 400 </option>
                         <option value="16400 - 24600">16 400-24 600</option>
                         <option value="24600 - 32600">24 600-32 600</option>
                         <option value="32600 - 48600">32 600-48 600</option>
-                        <option value="48 600">48 600</option>
+                        <option value="over 48 600">over 48 600</option>
                     </select>
                     </div>
                 }

@@ -2,12 +2,31 @@ import { useContext } from 'react';
 import style from './Cart.module.css';
 import { CartItems } from '../CartItems/CartItems';
 import { CartContext } from '../../../context/cartContext';
+import { AuthContext } from '../../../context/AuthContext';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '../../../config/firebase';
 
 export const Cart = () => {
-    const { cart } = useContext(CartContext);
+    const { cart, setCart } = useContext(CartContext);
+    const { user } = useContext(AuthContext);
 
-    const checkOut = () => {
-        console.log('checkout ->',cart)
+    const checkOut = async () => {
+        const checkout = {
+            userId: user._id,
+            city: user.city,
+            email: user.email,
+            role: user.role,
+            orderedProd: cart,
+        }
+        console.log('checkout ->',checkout);
+        
+        try {
+            let ref = collection(db, 'orders');
+            await addDoc(ref, checkout);
+            setCart([]);
+        } catch (err) {
+            alert(err.message);
+        }
     }
 
     return (

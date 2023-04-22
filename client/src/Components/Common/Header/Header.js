@@ -42,8 +42,8 @@ export const Header = () => {
                     : 
                     <li>NoOne</li>
                     }
-                    <li>Martketing</li>
-                    <li>Eurolife</li>
+                    <li><Link to='/utils'>Utils</Link></li>
+                    <li><Link to='/'>Awards</Link></li>
                 </ul>
             </nav>
             <div className={style.user}>

@@ -6,8 +6,8 @@ import { useParams } from 'react-router-dom';
 import { CartContext } from '../../context/cartContext';
 export const Details = () => {
     const { addToCartHandler } = useContext(CartContext);
-    const { id }= useParams();
-
+    const { id, category }= useParams();
+    console.log(id, category);
     const [product, setProduct] = useState('');
     const [value, setValue] = useState(1);
 
@@ -20,7 +20,8 @@ export const Details = () => {
     }
 
     useEffect(() => {
-        getDoc(doc(db, 'products', id))
+        console.log('rerender check')
+        getDoc(doc(db, category, id))
             .then((res) => {
                 let data = res.data();
                 const filterdData = {data, _id: id};
@@ -29,7 +30,7 @@ export const Details = () => {
             .catch((err)=>{
                 console.log(err)
             })
-    }, [id]);
+    }, [id, category]);
 
     console.log(product)
     const addToCart = (e) => {

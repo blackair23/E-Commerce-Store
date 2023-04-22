@@ -16,6 +16,7 @@ import { Guard } from './Components/Common/Guard/Guard';
 import { useLocalStorage } from './Hooks/useLocalStorage';
 import { CartContext } from './context/cartContext';
 import { Register } from './Components/Register/Register';
+import { Utils } from './Components/Utils/Utils';
 
 function App() {
 
@@ -65,8 +66,9 @@ function App() {
               <Route path='/register' element={<Register/>}/>
               <Route element={<Guard></Guard>}>
                 <Route path='/' element={<Home/>}/>
+                <Route path='/utils' element={<Utils/>}/>
                 <Route path='/create' element={<Create/>}/>
-                <Route path='/catalog/:id' element={<Details/>}/>
+                <Route path='/catalog/:id/:category' element={<Details/>}/>
                 <Route path='/profile' element={<Profile/>}/>
                 <Route path='/cart' element={<Cart/>}/>
               </Route>
