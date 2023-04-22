@@ -3,7 +3,7 @@ import style from './Cart.module.css';
 import { CartItems } from '../CartItems/CartItems';
 import { CartContext } from '../../../context/cartContext';
 import { AuthContext } from '../../../context/AuthContext';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { db } from '../../../config/firebase';
 
 export const Cart = () => {
@@ -17,6 +17,8 @@ export const Cart = () => {
             email: user.email,
             role: user.role,
             orderedProd: cart,
+            status: 'Processed',
+            timestamp: serverTimestamp(),
         }
         console.log('checkout ->',checkout);
         
