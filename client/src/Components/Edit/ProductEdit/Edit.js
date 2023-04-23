@@ -2,7 +2,7 @@ import style from './Edit.module.css';
 import { useEffect, useState } from 'react';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useNavigate, useParams } from 'react-router-dom';
-import { db } from '../../config/firebase';
+import { db } from '../../../config/firebase';
 
 export const Edit = () => {
     const { id, category } = useParams();
@@ -103,10 +103,10 @@ export const Edit = () => {
                     <div className={style.formElement}>
                     <label htmlFor="category">Category:</label>
                     <select onChange={onChangeHandler} className={style.select} value={values.category} name="category" id="">Category
-                        <option value="under 16400"> 16 400 </option>
-                        <option value="16400 - 24600">16 400-24 600</option>
-                        <option value="24600 - 32600">24 600-32 600</option>
-                        <option value="32600 - 48600">32 600-48 600</option>
+                        <option value="under 16 400">under 16 400 </option>
+                        <option value="16 400 - 24 600">16 400-24 600</option>
+                        <option value="24 600 - 32 600">24 600-32 600</option>
+                        <option value="32 600 - 48 600">32 600-48 600</option>
                         <option value="over 48 600">over 48 600</option>
                     </select>
                     </div>
@@ -114,7 +114,7 @@ export const Edit = () => {
 
 
 
-                <button className="btn">Submit</button>
+                <button className="btn">Edit</button>
             </form>
         </section>
     )

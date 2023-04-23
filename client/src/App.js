@@ -18,7 +18,8 @@ import { CartContext } from './context/cartContext';
 import { Register } from './Components/Register/Register';
 import { Utils } from './Components/Utils/Utils';
 import { Print } from './Components/Print/Print';
-import { Edit } from './Components/Edit/Edit';
+import { Edit } from './Components/Edit/ProductEdit/Edit';
+import { OrderEdit } from './Components/Edit/OrderEdit/OrderEdit';
 
 function App() {
 
@@ -74,6 +75,7 @@ function App() {
                 <Route path='/profile' element={<Profile/>}/>
                 <Route path='/edit/:id/:category' element={<Edit/>}/>
                 <Route path='/order/:id' element={<Print/>}/>
+                <Route path='/order/edit/:id' element={<OrderEdit/>}/>
                 <Route path='/cart' element={<Cart/>}/>
               </Route>
             </Routes>

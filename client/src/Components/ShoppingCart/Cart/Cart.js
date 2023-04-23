@@ -33,9 +33,9 @@ export const Cart = () => {
             await addDoc(ref, checkout);
 
             checkout.orderedProd.map(async (c) => {
-                const ref = doc(db, 'utils', c._id)
+                const ref = doc(db, 'awards', c._id)
                 await updateDoc(ref, { 
-                    startNumber: Number(c.data.startNumber) + Number(c.quantity - 1),
+                    // startNumber: Number(c.data.startNumber) + Number(c.quantity - 1),
                     stock: Number(c.data.stock) - Number(c.quantity),
                 })
             })

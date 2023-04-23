@@ -31,7 +31,7 @@ export const Print = () => {
             офис {order && order.data.city} получи от представител на „...” 
             – Генерална Дирекция - следните заявления за застраховане и документи към тях:</p>
         
-        <table c>
+        <table>
             <tbody>
             <tr>
                 <th scope="col">N:</th>
@@ -56,7 +56,7 @@ export const Print = () => {
                 ''
                 }
             </tbody>
-            </table>
+        </table>
 
             <div className={styles.sign}>
                 <div className={styles.left}>
