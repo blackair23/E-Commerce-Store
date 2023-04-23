@@ -27,6 +27,7 @@ export const Details = () => {
             .then((res) => {
                 let data = res.data();
                 const filterdData = {data, _id: id};
+                console.log('value check -> ',filterdData);
                 setProduct(filterdData);
             })
             .catch((err)=>{
@@ -82,7 +83,7 @@ export const Details = () => {
             {
                 user.role === 'admin' &&
                 <div className={style.adminPanel}>
-                    <button className={style.edit}><Link to={`/edit/${id}`}>Edit </Link></button>
+                    <Link to={`/edit/${id}/${category}`} className={style.edit}>Edit</Link>
                     <button onClick={deleteHandler} className={style.del}>Delete</button>
                 </div>
             }

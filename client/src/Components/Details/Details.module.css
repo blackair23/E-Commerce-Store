@@ -58,7 +58,10 @@
 
 #details .adminPanel .edit{
     width: 49.5%;
-    padding: 10px 30px;
+    /* padding: 10px 30px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #007c57;
     color: #fff;
     font-weight: bold;
