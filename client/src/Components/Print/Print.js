@@ -7,6 +7,7 @@ import { db } from '../../config/firebase';
 export const Print = () => {
     const { id } = useParams();
     const [order, setOrder] = useState(null);
+    const [products, setProducts] = useState([]);
 
     useEffect(() => {
         getDoc(doc(db, 'orders', id))
@@ -16,11 +17,41 @@ export const Print = () => {
                 const filterdData = {data, _id: id};
                 console.log(filterdData);
                 setOrder(filterdData);
+                currentNum(filterdData);
             })
             .catch((err) => {
                 alert(err.message);
             });
     }, [id]);
+
+    const currentNum = () => {
+        console.log(id);
+        let appProd= [];
+        // const index = order.array.findIndex(object => {
+        //     return object.id === id;
+        // });
+        // console.log('array index ->', index);
+        if(order === null){
+            console.log('exit');
+            return
+        }
+        order.data.orderedProd.map(async (c) =>{
+            const ref = doc(db, 'utils', c._id)
+            let product = await getDoc(ref);
+            let data = product.data();
+            appProd.push(data);
+            
+        })
+        console.log(appProd);
+        setProducts(appProd);
+    }
+
+    useEffect(() => {
+        if(order){
+            currentNum()
+        }
+    }, [order])
+        
     
     return (
         <section id={styles.print}>

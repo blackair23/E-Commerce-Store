@@ -9,17 +9,24 @@ export const Create = () => {
     const navigate = useNavigate();
     const [values, setValues] = useState({
         product: 'awards',
+        document: false,
         name:'',
-        price: '',
         description: '',
         img: '',
         stock: '',
         startNumber: 0,
         category: 'under 16 400',
+        array: [],
     });
 
     const onChangeHandler = (e) => {
-        setValues(state => ({...state, [e.target.name]: e.target.value}))
+        if(e.target.name === 'document') {
+            console.log( [e.target.name],': ',e.target.checked)
+            setValues(state => ({...state, [e.target.name]: e.target.checked }))
+        }else {
+            console.log( [e.target.name],': ',e.target.value)
+            setValues(state => ({...state, [e.target.name]: e.target.value}))
+        }
     }
 
     const onSubmit= async (e) => {
@@ -40,11 +47,11 @@ export const Create = () => {
             console.log(err)            
         }
     }
-    // segments: Array [ "awards", "kwY7VGBSE99IIpAyU92m" ]
 
     return (
         <section id={style.create}>
             <h2>Create product</h2>
+            <form onSubmit={onSubmit} className={style.createForm}>
             <div className={style.formElement}>
                     <label htmlFor="product">Category:</label>
                     <select onChange={onChangeHandler} className={style.select} value={values.product} name="product" id="">Category
@@ -52,16 +59,15 @@ export const Create = () => {
                         <option value="utils">Utils</option>
                     </select>
                 </div>
+                {values.product === "utils" &&
+                <div>
+                    <label htmlFor="document">Заявление: </label>
+                    <input onChange={onChangeHandler}  value={values.document} type="checkbox" id="document" name="document" />
+                </div>}
 
-            <form onSubmit={onSubmit} className={style.createForm}>
                 <div className={style.formElement}>
                     <label htmlFor="name">Name:</label>
                     <input onChange={onChangeHandler} value={values.name} type="text" name="name" />
-                </div>
-
-                <div className={style.formElement}>
-                    <label htmlFor="price">Price:</label>
-                    <input onChange={onChangeHandler} value={values.price} type="number" name="price" />
                 </div>
 
                 <div className={style.formElement}>
@@ -79,13 +85,8 @@ export const Create = () => {
                     <input onChange={onChangeHandler} type="number" value={values.stock} name="stock" />
                 </div>
                 {   
-                    values.product === "utils" ?
-                    
-                    <div className={style.formElement}>
-                    <label htmlFor="startNumber">Start Number:</label>
-                    <input onChange={onChangeHandler} value={values.startNumber} type="number" name="startNumber" />
-                    </div>
-                    :
+                    values.product === "awards" &&
+
                     <div className={style.formElement}>
                     <label htmlFor="category">Category:</label>
                     <select onChange={onChangeHandler} className={style.select} value={values.category} name="category" id="">Category
@@ -98,7 +99,12 @@ export const Create = () => {
                     </div>
                 }
 
-
+                {values.document === true && 
+                    <div className={style.formElement}>
+                    <label htmlFor="startNumber">Start Number:</label>
+                    <input onChange={onChangeHandler} value={values.startNumber} type="number" name="startNumber" />
+                    </div>
+                }
 
                 <button className="btn">Submit</button>
             </form>

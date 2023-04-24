@@ -79,7 +79,7 @@ export const Profile = () => {
                         <Link to={`/order/${o._id}`}>Info</Link>  
                         <Link className={style.tblBtn} to={`/order/edit/${o._id}`}><i className="fa-solid fa-pen"></i></Link>
                         {/* <button className={style.tblBtn}><i className="fa-solid fa-pen"></i></button>   */}
-                        <button onClick={() => deleteHandler(o._id)} className={style.tblBtn}><i class="fa-regular fa-trash-can"></i></button>
+                        <button onClick={() => deleteHandler(o._id)} className={style.tblBtn}><i className="fa-regular fa-trash-can"></i></button>
                     </td>
                 </tr>
                 ))
