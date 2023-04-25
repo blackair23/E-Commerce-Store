@@ -39,6 +39,8 @@ export const Print = () => {
             const ref = doc(db, 'utils', c._id)
             let product = await getDoc(ref);
             let data = product.data();
+            console.log('important ------------>',data);
+
             appProd.push(data);
             
         })
