@@ -9,6 +9,8 @@ export const OrderEdit = () => {
 
     const { id } = useParams();
     const [order, setOrder] = useState();
+    const [products, setProducts] = useState([]);
+
 
 
     useEffect(() => {
@@ -24,19 +26,50 @@ export const OrderEdit = () => {
             })
     },  [id])
 
+    const currentNum = () => {
+        let appProd= [];
+
+        if(order === null){
+            console.log('exit');
+            return
+        }
+        order.orderedProd.map(async (c) =>{
+            const ref = doc(db, 'utils', c._id)
+            let product = await getDoc(ref);
+            let data = product.data();
+            console.log('important ------------>',data);
+            data._id = c._id;
+
+            appProd.push(data);
+            // console.log('pushed ------------>',appProd);
+            setProducts(appProd);
+        })
+        // console.log('What? ------------>',appProd);
+
+    }
+
+    useEffect(() => {
+        if(order){
+            currentNum()
+        }
+    }, [order]) /* eslint-disable-line */
+
     // const onSubmit = () => {
     //     console.log('submit')
     // };
-    const handleDelete = (id) => {
-        setOrder(prevOrder => {
-            const newProd = prevOrder.orderedProd.filter((i) => i._id !== id);
+    const handleDelete = (prodId) => {
+        setProducts(prevOrder => {
+            const newProd = prevOrder.orderedProd.filter((i) => i._id !== prodId);
             return { ...prevOrder, orderedProd: newProd };
         })
     };
-    // const handleEdit = () => {
 
-    //     console.log('edit')
-    // };
+
+    const handleEdit = (prodId) => {
+        onBtnClick("edit");
+
+        console.log('edit', prodId);
+    };
 
     const [openModal, setModal] = useState({modal: null, state: false});
     const onBtnClick = (modal) => {
@@ -52,6 +85,7 @@ export const OrderEdit = () => {
             <h2>Edit order</h2>
             <p>Office: {order?.city}</p>
             <p>Email: {order?.email}</p>
+            <p>Status: {order?.status}</p>
             {openModal.modal === "edit" && <OEdit onClose={onClose}></OEdit> }
             {order?.orderedProd.length}
 
@@ -66,20 +100,54 @@ export const OrderEdit = () => {
                 <th scope="col">Edit:</th>
             </tr>
             {/* eslint-disable  */}
-                {order ? 
+            {products.length > 0 ? 
+                products.map((p, i) => {
+                    let index = '';
+                    let startNumber = Number(p.startNumber);
+                    let usedToNow = 0;
+                    let from = 0;
+                    if(p.document){
+                        index = p.array.findIndex(object => {
+                            return object.id === id;
+                        });
+                        for (let i = 0; i <= index; i++) {
+                            usedToNow += Number(p.array[i].quantity);
+                            if(i === index - 1){
+                                from = Number(usedToNow)
+                            }
+                        }
+                    }
+                    let currentQuantity = p.array[index].quantity;
+
+                    return (
+                        <tr key={p._id} scope="row">
+                                <td data-label="N">{ i + 1 }</td>
+                                <td data-label="Вид">{p.name  }</td>
+                                <td data-label="Пореден номер от">{ startNumber + from }</td>
+                                <td data-label="До">{ startNumber + usedToNow}</td>
+                                <td data-label="брой">{ currentQuantity }</td>
+                                <td data-label="Edit" ><i onClick={() => handleEdit(p._id)} className="fa-solid fa-pen"></i> <div></div><i onClick={() => handleDelete(p._id)} className="fa-solid fa-trash"></i></td>
+                        </tr>
+                    )})
+                :
+                ''
+                }
+
+            {/* eslint-disable  */}
+                {/* {order ? 
                 order.orderedProd.map((o, i) => (
                 <tr key={o._id} scope="row">
                     <td data-label="N">{ i + 1 }</td>
-                    <td data-label="Вид">{ o.data.name }</td>
-                    <td data-label="Пореден номер от">{ o.data.startNumber >= 0  ? o.data.startNumber : " - "}</td>
-                    <td data-label="До">{ o.data.startNumber >= 0 ? Number(o.data.startNumber) + (Number(o.quantity) - 1) : " - "}</td>
-                    <td data-label="брой">{ o.quantity }</td>
+                    <td data-label="Вид">{p.name  }</td>
+                    <td data-label="Пореден номер от">{ startNumber + from }</td>
+                    <td data-label="До">{ startNumber + usedToNow}</td>
+                    <td data-label="брой">{ currentQuantity }</td>
                     <td data-label="Edit" ><i onClick={() => onBtnClick("edit")} className="fa-solid fa-pen"></i> <div></div><i onClick={() => handleDelete(o._id)} className="fa-solid fa-trash"></i></td>
                 </tr>
                 ))
                 :
                 ''
-                }
+                } */}
             </tbody>
         </table>
         </section>

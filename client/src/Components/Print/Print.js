@@ -13,11 +13,8 @@ export const Print = () => {
         getDoc(doc(db, 'orders', id))
             .then((res) => {
                 let data = res.data();
-                console.log(data);
-                const filterdData = {data, _id: id};
-                console.log(filterdData);
-                setOrder(filterdData);
-                currentNum(filterdData);
+                data._id = id;
+                setOrder(data);
             })
             .catch((err) => {
                 alert(err.message);
@@ -25,43 +22,42 @@ export const Print = () => {
     }, [id]);
 
     const currentNum = () => {
-        console.log(id);
         let appProd= [];
-        // const index = order.array.findIndex(object => {
-        //     return object.id === id;
-        // });
-        // console.log('array index ->', index);
+
         if(order === null){
             console.log('exit');
             return
         }
-        order.data.orderedProd.map(async (c) =>{
+        order.orderedProd.map(async (c) =>{
             const ref = doc(db, 'utils', c._id)
             let product = await getDoc(ref);
             let data = product.data();
-            console.log('important ------------>',data);
+            // console.log('important ------------>',data);
+            data._id = c._id;
 
             appProd.push(data);
-            
+            // console.log('pushed ------------>',appProd);
+            setProducts(appProd);
         })
-        console.log(appProd);
-        setProducts(appProd);
+        // console.log('What? ------------>',appProd);
+
     }
 
     useEffect(() => {
         if(order){
             currentNum()
         }
-    }, [order])
+    }, [order]) /* eslint-disable-line */
+
         
     
     return (
         <section id={styles.print}>
             <div className={styles.page} size="A4">
         <h2>ПРИЕМО-ПРЕДАВАТЕЛЕН ПРОТОКОЛ</h2>
-        <p className={styles.paragraph}>Днес  {order && order.data.timestamp.toDate().getDate()}/{ order? order.data.timestamp.toDate().getMonth() + 1 : ""}/{order? order.data.timestamp.toDate().getFullYear() : ""}г.
+        <p className={styles.paragraph}>Днес  {order && order.timestamp.toDate().getDate()}/{ order? order.timestamp.toDate().getMonth() + 1 : ""}/{order? order.timestamp.toDate().getFullYear() : ""}г.
          в гр. София, долуподписаният представител на „...” – 
-            офис {order && order.data.city} получи от представител на „...” 
+            офис {order && order.city} получи от представител на „...” 
             – Генерална Дирекция - следните заявления за застраховане и документи към тях:</p>
         
         <table>
@@ -74,17 +70,38 @@ export const Print = () => {
                 <th scope="col">брой:</th>
             </tr>
             {/* eslint-disable  */}
-                {order ? 
-                order.data.orderedProd.map((o, i) => (
-                <tr key={o._id} scope="row">
-                    <td data-label="N">{ i + 1 }</td>
-                    <td data-label="Вид">{ o.data.name }</td>
-                    <td data-label="Пореден номер от">{ o.data.startNumber >= 0  ? o.data.startNumber : " - "}</td>
-                    <td data-label="До">{ o.data.startNumber >= 0 ? Number(o.data.startNumber) + (Number(o.quantity) - 1) : " - "}</td>
-                    <td data-label="брой">{ o.quantity }</td>
-                    {/* <td data-label="брой"><Link to={`/order/${o._id}`}>Info</Link></td> */}
-                </tr>
-                ))
+                {products.length > 0 ? 
+                products.map((p, i) => {
+                    console.log('---------map---------',p )
+                    let index = '';
+                    let startNumber = Number(p.startNumber);
+                    let usedToNow = 0;
+                    let from = 0;
+                    if(p.document){
+                        index = p.array.findIndex(object => {
+                            return object.id === id;
+                        });
+                        console.log('---------documents---------',index )
+                        for (let i = 0; i <= index; i++) {
+                            usedToNow += Number(p.array[i].quantity);
+                            if(i === index - 1){
+                                console.log(i , '<==>', index-1)
+                                from = Number(usedToNow)
+                            }
+                            console.log(usedToNow);
+                        }
+                    }
+                    let currentQuantity = p.array[index].quantity;
+
+                    return (
+                        <tr key={p._id} scope="row">
+                            <td data-label="N">{ i + 1 }</td>
+                            <td data-label="Вид">{ p.name }</td>
+                            <td data-label="Пореден номер от">{ startNumber + from }</td>
+                            <td data-label="До">{ startNumber + usedToNow }</td>
+                            <td data-label="брой">{ currentQuantity }</td>
+                        </tr>
+                    )})
                 :
                 ''
                 }
@@ -102,7 +119,7 @@ export const Print = () => {
                 </div>
                 <div className={styles.right}>
                     <p>
-                        ПРИЕЛ за офис {order && order.data.city}:	
+                        ПРИЕЛ за офис {order && order.city}:	
                     </p>
                     <p>
                         /............................................./
