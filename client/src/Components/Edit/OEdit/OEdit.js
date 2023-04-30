@@ -1,8 +1,40 @@
+import { useEffect, useState } from 'react';
 import style from './OEdit.module.css';
-export const OEdit = ({onClose}) => {
+import { doc, updateDoc } from 'firebase/firestore';
+import { db } from '../../../config/firebase';
+export const OEdit = ({orderId, products, prodId, onClose}) => {
+    console.log(orderId, '-',products,'\n',prodId, '-')
+    const [quantity, setQuantity] = useState('');
+    const [currentProd, setCurProd] = useState(products.filter((p) => p._id === prodId));
+    const [currentOrder, setCurOrd] = useState(currentProd[0].array.filter((o) => o.id === orderId));
 
-    const onSubmit = () => {
-        console.log('submit');
+    useEffect(() => {
+       console.log('currentProd -->',currentProd);
+       console.log('currentOrder -->',currentOrder);
+       setQuantity(currentOrder[0].quantity);
+    }, [orderId, products, prodId])
+
+
+    const onSubmit = async (e) => {
+        e.preventDefault()
+        console.log('submit', quantity);
+        let index = currentProd[0].array.findIndex((obj) => obj.id === orderId);
+        console.log(index);
+        // console.log(currentProd[0].array[index]);
+        console.log('before->', currentProd[0].array[index]);
+        currentProd[0].array[index].quantity = Number(quantity);
+        console.log('after->', currentProd[0].array[index]);
+        console.log(currentProd[0]);
+        let change = currentProd[0].array;
+
+        try {
+            const ref = doc(db, 'utils', prodId);
+            await updateDoc(ref, {array: change});
+            alert('update succesful');
+            onClose();
+        } catch (err) {
+            alert(err.message)
+        }
     }
     return (
         <>
@@ -13,23 +45,12 @@ export const OEdit = ({onClose}) => {
                     <button onClick={onClose} className="close-btn"><i className="fa-solid fa-xmark"></i></button>
                     <form onSubmit={onSubmit}>
                         <h2>Edit</h2>
-                        {/* <div className="form-element">
-                            <label htmlFor="email">Email</label>
-                            {emailErr.email && 
-                            <p className="form-error"><i className="fa-solid fa-circle-exclamation fa-bounce"></i> Enter valid email!</p>
-                            } 
-                            <input type="text" id="email" name="email" placeholder="Enter email" value={values.email} onChange={onChangeHandler}  onBlur={(e) => setEmailErr(e, values)}/>
-                        </div>
                         <div className="form-element">
-                            <label htmlFor="password">Password</label>
-                            {lengthErr.password && 
-                            <p className="form-error"><i className="fa-solid fa-circle-exclamation fa-bounce"></i> Password must be atleast 3 charter!</p>
-                            }
-                            <input type="password" id="password" name="password" placeholder="Enter password" value={values.password} onChange={onChangeHandler} onBlur={(e) => setLengthErr(e, 2, values)}/>
-                        </div> */}
-                        <input className="btn primary-btn" type="submit" value="Log in"/>
+                            <label htmlFor="quantity">Quantity</label>
+                            <input type="text" id="quantity" name="quantity" placeholder="Enter quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)}/>
+                        </div>
+                        <input className="btn primary-btn" type="submit" value="Edit"/>
                     </form>
-                    <span>Don't have an acount?</span> 
                 </div>
             </div>
         </div>

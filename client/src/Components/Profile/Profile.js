@@ -31,21 +31,21 @@ export const Profile = () => {
 
             await deleteDoc(ref);
 
-            deletedProd.data().orderedProd.map(async (c) => {
-                try {
-                    const ref = doc(db, 'awards', c._id)
-                    let currentProd = await getDoc(ref);
-                    console.log(currentProd.data());
-                    let cp = currentProd.data();
-                    console.log(cp);
-                    await updateDoc(ref, { 
-                        // startNumber: Number(c.data.startNumber) + Number(c.quantity - 1),
-                        stock: Number(cp.stock) + Number(c.quantity),
-                    })   
-                } catch (err) {
-                    alert(err.message);
-                }
-            })
+            // deletedProd.data().orderedProd.map(async (c) => {
+            //     try {
+            //         const ref = doc(db, 'awards', c._id)
+            //         let currentProd = await getDoc(ref);
+            //         console.log(currentProd.data());
+            //         let cp = currentProd.data();
+            //         console.log(cp);
+            //         await updateDoc(ref, { 
+            //             // startNumber: Number(c.data.startNumber) + Number(c.quantity - 1),
+            //             stock: Number(cp.stock) + Number(c.quantity),
+            //         })   
+            //     } catch (err) {
+            //         alert(err.message);
+            //     }
+            // })
 
             alert('deleted');            
         } catch (err) {

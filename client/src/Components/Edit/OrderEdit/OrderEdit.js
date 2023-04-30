@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import style from './OrderEdit.module.css';
 import { useEffect, useState } from 'react';
-import { doc, getDoc } from 'firebase/firestore';
+import { arrayRemove, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../config/firebase';
 import { OEdit } from '../OEdit/OEdit';
 
@@ -10,6 +10,7 @@ export const OrderEdit = () => {
     const { id } = useParams();
     const [order, setOrder] = useState();
     const [products, setProducts] = useState([]);
+    const [prodId, setProdId] = useState('');
 
 
 
@@ -57,17 +58,39 @@ export const OrderEdit = () => {
     // const onSubmit = () => {
     //     console.log('submit')
     // };
-    const handleDelete = (prodId) => {
-        setProducts(prevOrder => {
-            const newProd = prevOrder.orderedProd.filter((i) => i._id !== prodId);
-            return { ...prevOrder, orderedProd: newProd };
-        })
+    const handleDelete = async (prodId) => {
+        console.log(prodId)
+
+        let currentProd = products.filter((p) => p._id === prodId);
+        let deleted = currentProd[0].array.filter((o) => o.id !== id);
+        console.log(deleted);
+        // let index = currentProd[0].array.findIndex((obj) => obj.id === id);
+        // console.log(index);
+        // console.log(currentProd[0].array[index]);
+        // console.log('before->', currentProd[0].array[index]);
+        // currentProd[0].array[index].quantity = Number(quantity);
+        // console.log('after->', currentProd[0].array[index]);
+        // console.log(currentProd[0]);
+        // let change = currentProd[0].array;
+
+        try {
+            const ref = doc(db, 'utils', prodId);
+            await updateDoc(ref, {array: deleted});
+            setProducts(prevOrder => {
+                const newProd = prevOrder.orderedProd.filter((i) => i._id !== prodId);
+                return { ...prevOrder, orderedProd: newProd };
+            })
+            alert('delete succesful');
+        } catch (err) {
+            alert(err.message)
+        }
+
     };
 
 
     const handleEdit = (prodId) => {
+        setProdId(prodId);
         onBtnClick("edit");
-
         console.log('edit', prodId);
     };
 
@@ -86,7 +109,7 @@ export const OrderEdit = () => {
             <p>Office: {order?.city}</p>
             <p>Email: {order?.email}</p>
             <p>Status: {order?.status}</p>
-            {openModal.modal === "edit" && <OEdit onClose={onClose}></OEdit> }
+            {openModal.modal === "edit" && <OEdit prodId={prodId} orderId={id} products={products} onClose={onClose}></OEdit> }
             {order?.orderedProd.length}
 
         <table>
@@ -132,22 +155,6 @@ export const OrderEdit = () => {
                 :
                 ''
                 }
-
-            {/* eslint-disable  */}
-                {/* {order ? 
-                order.orderedProd.map((o, i) => (
-                <tr key={o._id} scope="row">
-                    <td data-label="N">{ i + 1 }</td>
-                    <td data-label="Вид">{p.name  }</td>
-                    <td data-label="Пореден номер от">{ startNumber + from }</td>
-                    <td data-label="До">{ startNumber + usedToNow}</td>
-                    <td data-label="брой">{ currentQuantity }</td>
-                    <td data-label="Edit" ><i onClick={() => onBtnClick("edit")} className="fa-solid fa-pen"></i> <div></div><i onClick={() => handleDelete(o._id)} className="fa-solid fa-trash"></i></td>
-                </tr>
-                ))
-                :
-                ''
-                } */}
             </tbody>
         </table>
         </section>
