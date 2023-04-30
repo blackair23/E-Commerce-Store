@@ -28,7 +28,7 @@ export const OEdit = ({orderId, products, prodId, onClose}) => {
         let change = currentProd[0].array;
 
         try {
-            const ref = doc(db, 'utils', prodId);
+            const ref = doc(db, currentProd[0].product, prodId);
             await updateDoc(ref, {array: change});
             alert('update succesful');
             onClose();

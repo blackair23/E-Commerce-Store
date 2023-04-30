@@ -33,7 +33,7 @@ export const Cart = () => {
             let order = await addDoc(ref, checkout);
             console.log('order -> ', order);
             checkout.orderedProd.map(async (c) => {
-                const ref = doc(db, 'utils', c._id)
+                const ref = doc(db, c.data.product, c._id)
                 console.log({id: order._key.path.segments[1], quantity: Number(c.quantity)})
                 await updateDoc(ref, { 
                     // startNumber: Number(c.data.startNumber) + Number(c.quantity - 1),
