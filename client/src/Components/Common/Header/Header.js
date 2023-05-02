@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../../context/AuthContext';
 import { CartContext } from '../../../context/cartContext';
+import swal from 'sweetalert';
 
 
 export const Header = () => {
@@ -19,8 +20,10 @@ export const Header = () => {
             signOut(auth);
             userLogout();
             navigate('/login');
-        } catch (error) {
-            console.log(error.message)
+        } catch (err) {
+            swal(err.message, {
+                icon: "error",
+            });    
         }
     }
    

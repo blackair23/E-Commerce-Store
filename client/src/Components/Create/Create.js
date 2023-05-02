@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { addDoc, collection } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../../config/firebase';
+import swal from 'sweetalert';
 
 export const Create = () => {
     
@@ -44,7 +45,9 @@ export const Create = () => {
             const u = await addDoc(ref, values);
             navigate(`/catalog/${u._key.path.segments[1]}/${values.product}`);
         } catch (err) {
-            console.log(err)            
+            swal(err.message, {
+                icon: "error",
+            });             
         }
     }
 

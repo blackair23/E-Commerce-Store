@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import {  doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../config/firebase';
 import { OEdit } from '../OEdit/OEdit';
+import swal from 'sweetalert';
 
 export const OrderEdit = () => {
 
@@ -22,8 +23,10 @@ export const OrderEdit = () => {
                 console.log('data ->', data);
                 setOrder(data);
             })
-            .catch((err) => {
-                alert(err.message)
+            .catch ((err) => {
+                swal(err.message, {
+                    icon: "error",
+                });          
             })
     },  [id])
 
@@ -48,7 +51,9 @@ export const OrderEdit = () => {
             appProd = productData;
             setProducts(appProd);
         } catch (err) {
-            alert(err.message)
+            swal(err.message, {
+                icon: "error",
+            });    
         }
     };
 
@@ -77,9 +82,13 @@ export const OrderEdit = () => {
             const ref2 = doc(db, 'orders', id);
             await updateDoc(ref2, {orderedProd: newProd})
 
-            alert('delete succesful');
+            swal('Delete Successful', {
+                icon: "success",
+            });
         } catch (err) {
-            alert(err.message)
+            swal(err.message, {
+                icon: "error",
+            });    
         }
 
     };

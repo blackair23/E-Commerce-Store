@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import style from './OEdit.module.css';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../config/firebase';
+import swal from 'sweetalert';
 export const OEdit = ({orderId, products, prodId, onClose}) => {
     console.log(orderId, '-',products,'\n',prodId, '-')
     const [quantity, setQuantity] = useState('');
@@ -30,10 +31,14 @@ export const OEdit = ({orderId, products, prodId, onClose}) => {
         try {
             const ref = doc(db, currentProd[0].product, prodId);
             await updateDoc(ref, {array: change});
-            alert('update succesful');
+            swal('Update Successfull', {
+                icon: "success",
+            });
             onClose();
         } catch (err) {
-            alert(err.message)
+            swal(err.message, {
+                icon: "error",
+            });
         }
     }
     return (

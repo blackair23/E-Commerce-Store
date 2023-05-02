@@ -3,6 +3,7 @@ import { COLLECTION } from '../../config/collection';
 import { Products } from '../Products/Products';
 import style from './Home.module.css';
 import { useEffect, useState } from 'react';
+import swal from 'sweetalert';
 
 export const Home = () => {
     const [products, setProducts] = useState(null);
@@ -13,7 +14,9 @@ export const Home = () => {
                 const filterdData = data.docs.map((doc) => ({...doc.data(), _id: doc.id}))
                 setProducts(filterdData);
             } catch (err) {
-                alert(err)                
+                swal(err.message, {
+                    icon: "error",
+                });               
             }
         }
         getProducts();

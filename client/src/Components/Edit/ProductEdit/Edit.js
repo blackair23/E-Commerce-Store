@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useNavigate, useParams } from 'react-router-dom';
 import { db } from '../../../config/firebase';
+import swal from 'sweetalert';
 
 export const Edit = () => {
     const { id, category } = useParams();
@@ -49,10 +50,14 @@ export const Edit = () => {
             console.log('send to back ->', values);
             const ref = doc(db, category, id)
             await updateDoc(ref, values);
-            alert('update succesful');
+            swal('Update Successful', {
+                icon: "success",
+            });
             navigate(`/catalog/${id}/${category}`);
         } catch (err) {
-            console.log(err)            
+            swal(err.message, {
+                icon: "error",
+            });          
         }
     }
 

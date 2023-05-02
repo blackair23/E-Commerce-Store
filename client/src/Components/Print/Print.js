@@ -3,6 +3,7 @@ import styles from './Print.module.css';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { db } from '../../config/firebase';
+import swal from 'sweetalert';
 
 export const Print = () => {
     const { id } = useParams();
@@ -17,7 +18,9 @@ export const Print = () => {
                 setOrder(data);
             })
             .catch((err) => {
-                alert(err.message);
+                swal(err.message, {
+                    icon: "error",
+                });
             });
     }, [id]);
 

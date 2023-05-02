@@ -5,6 +5,8 @@ import { db } from '../../config/firebase';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { CartContext } from '../../context/cartContext';
 import { AuthContext } from '../../context/AuthContext';
+import swal from 'sweetalert';
+
 export const Details = () => {
     const { addToCartHandler } = useContext(CartContext);
     const { user } = useContext(AuthContext);
@@ -42,20 +44,37 @@ export const Details = () => {
         addToCartHandler(product, value)
     }
 
-    const deleteHandler = async () => {
-
-        try {
-            const ref = doc(db, category, id);
-            await deleteDoc(ref);
-            if(category === 'utils'){
-                navigate(`/utils`)
+    const deleteHandler = () => {
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this imaginary file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+                try {
+                    const ref = doc(db, category, id);
+                    deleteDoc(ref);
+                    if(category === 'utils'){
+                        navigate(`/utils`)
+                    } else {
+                        navigate(`/`)
+                    }
+                    swal("Poof! Your product has been deleted!", {
+                        icon: "success",
+                    });
+                } catch (err) {
+                    swal(err.message, {
+                        icon: "success",
+                    });
+                }
             } else {
-                navigate(`/`)
+              swal("Your product is safe!");
             }
-            alert('deleted');
-        } catch (err) {
-            alert(err.message);
-        }
+          });
+       
     }
 
     return(

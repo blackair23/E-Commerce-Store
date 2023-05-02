@@ -5,6 +5,7 @@ import { CartContext } from '../../../context/cartContext';
 import { AuthContext } from '../../../context/AuthContext';
 import { addDoc, arrayUnion, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { db } from '../../../config/firebase';
+import swal from 'sweetalert';
 
 export const Cart = () => {
     const { cart, setCart } = useContext(CartContext);
@@ -41,10 +42,14 @@ export const Cart = () => {
                     array: arrayUnion({id: order._key.path.segments[1], quantity: Number(c.quantity)})
                 })
             })
-            alert('ready');
+            swal('Ready!', {
+                icon: "success",
+            });
             setCart([]);
         } catch (err) {
-            alert(err.message);
+            swal(err.message, {
+                icon: "error",
+            });    
         }
     }
 

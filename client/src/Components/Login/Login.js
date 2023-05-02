@@ -6,6 +6,7 @@ import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { doc, getDoc } from 'firebase/firestore';
+import swal from 'sweetalert';
 
 
 export const Login = () => {
@@ -28,11 +29,15 @@ export const Login = () => {
                         navigate('/');
                     })
                     .catch((err)=> {
-                        alert(err.message)
+                        swal(err.message, {
+                            icon: "error",
+                        });
                     });
             })
             .catch((err)=> {
-                alert(err.message);
+                swal(err.message, {
+                    icon: "error",
+                });
             })}
     
     return (

@@ -3,6 +3,7 @@ import style from './Profile.module.css';
 import { collection, deleteDoc, doc, getDoc, getDocs } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
 
 export const Profile = () => {
     const [orders, setOrders] = useState(null);
@@ -18,7 +19,9 @@ export const Profile = () => {
                 setOrders(filterdData);
             })
             .catch((err) => {
-                alert(err.message);
+                swal(err.message, {
+                    icon: "error",
+                });    
             })
     }, []);
 
@@ -48,9 +51,13 @@ export const Profile = () => {
             //     }
             // })
 
-            alert('deleted');            
+            swal('Delete Successful', {
+                icon: "success",
+            });    
         } catch (err) {
-            alert(err.message)
+            swal(err.message, {
+                icon: "error",
+            });    
         }
     }
 
