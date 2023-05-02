@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import style from './Profile.module.css';
-import { collection, deleteDoc, doc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDoc, getDocs } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import { Link } from 'react-router-dom';
 
@@ -23,6 +23,7 @@ export const Profile = () => {
     }, []);
 
     const deleteHandler = async (id) => {
+        console.log('deleted')
         try {
             const ref = doc(db, 'orders', id);
             let deletedProd = await getDoc(ref);
@@ -79,7 +80,7 @@ export const Profile = () => {
                         <Link to={`/order/${o._id}`}>Info</Link>  
                         <Link className={style.tblBtn} to={`/order/edit/${o._id}`}><i className="fa-solid fa-pen"></i></Link>
                         {/* <button className={style.tblBtn}><i className="fa-solid fa-pen"></i></button>   */}
-                        <button onClick={() => deleteHandler(o._id)} className={style.tblBtn}><i className="fa-regular fa-trash-can"></i></button>
+                        <button disabled onClick={() => deleteHandler(o._id)} className={style.tblBtn}><i className="fa-regular fa-trash-can"></i></button>
                     </td>
                 </tr>
                 ))
