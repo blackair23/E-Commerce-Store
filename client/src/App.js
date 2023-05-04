@@ -20,6 +20,7 @@ import { Utils } from './Components/Utils/Utils';
 import { Print } from './Components/Print/Print';
 import { Edit } from './Components/Edit/ProductEdit/Edit';
 import { OrderEdit } from './Components/Edit/OrderEdit/OrderEdit';
+import { Stock } from './Components/Stock/Stock';
 
 function App() {
 
@@ -77,6 +78,7 @@ function App() {
                 <Route path='/order/:id' element={<Print/>}/>
                 <Route path='/order/edit/:id' element={<OrderEdit/>}/>
                 <Route path='/cart' element={<Cart/>}/>
+                <Route path='/stock' element={<Stock/>}/>
               </Route>
             </Routes>
           <Footer></Footer>
