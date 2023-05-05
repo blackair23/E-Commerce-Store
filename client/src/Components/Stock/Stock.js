@@ -1,6 +1,44 @@
+import { useEffect, useState } from 'react';
 import style from './Stock.module.css';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../../config/firebase';
+import swal from 'sweetalert';
 
 export const Stock = () => {
+
+    const [utils, setUtils] = useState(null);
+    const [awards, setAwards] = useState(null);
+
+
+    useEffect(() => {
+        let refUtil = collection(db, 'utils')
+        let refAwrd = collection(db, 'awards')
+        getDocs(refUtil)
+            .then((res) => {
+                const filterdData = res.docs.map((doc) => ({...doc.data(), _id: doc.id}));
+                console.log(filterdData);
+                setUtils(filterdData)
+            })
+            .catch((err) => {
+                swal(err.message, {
+                    icon: "error",
+                });    
+            })
+
+        getDocs(refAwrd)
+            .then((res) => {
+                const filterdData = res.docs.map((doc) => ({...doc.data(), _id: doc.id}))
+                console.log(filterdData);
+                setAwards(filterdData)
+            })
+            .catch((err) => {
+                swal(err.message, {
+                    icon: "error",
+                });    
+            })
+    }, [])
+
+
     return(
         <section id={style.stock}>
 
@@ -16,18 +54,25 @@ export const Stock = () => {
                             <th scope="col">Stock:</th>
                         </tr>
                         {/* eslint-disable  */}
-                            {/* {orders ? 
-                            orders.map((o, i) => ( */}
-                            {/* <tr key={o._id} scope="row"> */}
-                            <tr scope="row">
-                                <td data-label="N">{1}</td>
-                                <td data-label="Product">Product</td>
-                                <td data-label="Stock">Product</td>
-                            </tr>
-                            {/* )) */}
-                            {/* :
+                            {utils ? 
+                            utils.map((u, i) => {
+                                let stock = Number(u.stock);
+                                
+                                for (let i = 0; i < u.array.length; i++) {
+                                    stock -= Number(u.array[i].quantity);
+                                }
+                                return(
+
+                                    <tr key={u._id} scope="row">
+                                        <td data-label="N">{i + 1}</td>
+                                        <td data-label="Product">{u.name}</td>
+                                        <td data-label="Stock">{stock}</td>
+                                    </tr>
+                                )
+                            })
+                            :
                             ''
-                            } */}
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -41,20 +86,27 @@ export const Stock = () => {
                             <th scope="col">N:</th>
                             <th scope="col">Product:</th>
                             <th scope="col">Stock:</th>
+
                         </tr>
                         {/* eslint-disable  */}
-                            {/* {orders ? 
-                            orders.map((o, i) => ( */}
-                            {/* <tr key={o._id} scope="row"> */}
-                            <tr scope="row">
-                                <td data-label="N">1</td>
-                                <td data-label="Product">Product</td>
-                                <td data-label="Stock">Product</td>
-                            </tr>
-                            {/* ))
+                            {awards ? 
+                            awards.map((a, i) => {
+                                let stock = Number(a.stock);
+
+                                for (let i = 0; i < a.array.length; i++) {
+                                    stock -= Number(a.array[i].quantity)                                  
+                                }
+                                return(
+                                    <tr key={a._id} scope="row">
+                                        <td data-label="N">{i + 1}</td>
+                                        <td data-label="Product">{a.name}</td>
+                                        <td data-label="Stock">{stock}</td>
+                                    </tr>
+                                )
+                            })
                             :
                             ''
-                            } */}
+                            } 
                         </tbody>
                     </table>
                 </div>
