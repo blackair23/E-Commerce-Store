@@ -1,12 +1,14 @@
-#print{
-    background-color: aquamarine;
-}
-
 #print {
     background: rgb(204,204,204); 
     /* height: 100; */
     /* height: 29.7cm; */
 }
+.bg{
+    background: rgb(204,204,204); 
+    /* display: flex; */
+    /* flex-direction: ; */
+}
+
 #print h2 {
     text-align: center;
     margin: 30px auto;
@@ -27,24 +29,41 @@
     margin: 20px auto;
     margin-bottom: 0.5cm;
     box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
-    width: 21cm;
-    height: 29.7cm; 
+    width: 22cm;
+    height: 28.5cm; 
+    /* width: 21cm;
+    height: 29.7cm;  */
     padding: 15px;
 
 }
 .page[size="A4"] {  
-    width: 21cm;
-    height: 29.7cm; 
+    width: 22cm;
+    height: 28.5cm; 
 }
 
 .page .sign{
     display: flex;
     flex-direction: row;
-    /* margin-bottom: 30px; */
     margin: auto 50px 50px 30px;
-    /* margin-top: auto; */
     justify-content: space-between;
     align-items: center;
+}
+
+.printBtn{
+    padding: 10px 30px;
+    background-color: #b44f4f;
+    color: #fff;
+    margin: 30px auto;
+    border: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    cursor: pointer;
+}
+
+.printBtn:hover{
+    background-color: #007c57;
 }
 
 
