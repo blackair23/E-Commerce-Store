@@ -1,19 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import style from './Profile.module.css';
-import { collection, deleteDoc, doc, getDoc, getDocs } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
+import { AuthContext } from '../../context/AuthContext';
 
 export const Profile = () => {
+    const { user } = useContext(AuthContext);
     const [orders, setOrders] = useState(null);
+    const ref = collection(db, 'orders');
+    let q = ''; 
 
     useEffect(() => {
-        getDocs(collection(db, 'orders'))
+        if(user.role === 'admin'){
+            q = ref;
+        } else {
+            q = query(ref, where('userId', '==', user._id)) 
+        }
+        getDocs(q)
             .then((res) => {
                 // let data = res.data();
                 const filterdData = res.docs.map((doc) => ({...doc.data(), _id: doc.id}))
-                // const filteredData = {da}
                 console.log(res);
                 console.log(filterdData);
                 setOrders(filterdData);
@@ -85,9 +93,12 @@ export const Profile = () => {
                     <td data-label="Status">{o.status}</td>
                     <td data-label="Details">
                         <Link to={`/order/${o._id}`}>Info</Link>  
-                        <Link className={style.tblBtn} to={`/order/edit/${o._id}`}><i className="fa-solid fa-pen"></i></Link>
-                        {/* <button className={style.tblBtn}><i className="fa-solid fa-pen"></i></button>   */}
-                        <button disabled onClick={() => deleteHandler(o._id)} className={style.tblBtn}><i className="fa-regular fa-trash-can"></i></button>
+                        {user.role === 'admin' && 
+                            <>
+                            <Link className={style.tblBtn} to={`/order/edit/${o._id}`}><i className="fa-solid fa-pen"></i></Link>
+                            <button disabled onClick={() => deleteHandler(o._id)} className={style.tblBtn}><i className="fa-regular fa-trash-can"></i></button>
+                            </>
+                        }
                     </td>
                 </tr>
                 ))

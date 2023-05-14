@@ -54,7 +54,7 @@ export const Header = () => {
                 <ul role="list">
                     <li><i className="fa-solid fa-magnifying-glass"></i></li>
                     <Link to='/cart' className={style.shopping}><li><i className="fa-solid fa-cart-shopping"></i></li>{cart.length > 0 ? <div className={style.badge}>{cart.reduce((a, c) => a + c.quantity, 0)}</div> : ""}</Link>
-                    <Link to='/profile'><button className={style.profile}>Profile</button></Link>
+                    <Link to='/profile'><button className={style.orderBtn}>Orders</button></Link>
                     <button onClick={logOut} className={style.profile}>Logout</button>
                 </ul>
             </div>

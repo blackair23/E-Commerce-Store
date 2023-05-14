@@ -19,7 +19,7 @@ export const Login = () => {
     const singIn = (e) => {
         e.preventDefault();
         console.log(email, password);
-        signInWithEmailAndPassword(auth, email, password)
+        signInWithEmailAndPassword(auth, email.trim(), password.trim())
             .then((res) => {
                 console.log(res)
                 userLogin(res);
