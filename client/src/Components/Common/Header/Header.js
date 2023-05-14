@@ -40,11 +40,12 @@ export const Header = () => {
             <nav>
                 {/* eslint-disable-next-line */}
                 <ul role="list">
-                    {user.role === "admin" ? 
+                    {user.role === "admin" && 
                     <li><Link to='/create'>Create</Link></li>
-                    : 
-                    <li>NoOne</li>
                     }
+                    {/* {user.role === "" && 
+                    <li><Link to='/create'>Create</Link></li>
+                    } */}
                     <li><Link to='/utils'>Utils</Link></li>
                     <li><Link to='/'>Awards</Link></li>
                 </ul>

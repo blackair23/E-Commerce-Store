@@ -21,6 +21,7 @@ import { Print } from './Components/Print/Print';
 import { Edit } from './Components/Edit/ProductEdit/Edit';
 import { OrderEdit } from './Components/Edit/OrderEdit/OrderEdit';
 import { Stock } from './Components/Stock/Stock';
+import { AdminGuard } from './Components/Common/Guard/AdminGurad';
 
 function App() {
 
@@ -67,18 +68,20 @@ function App() {
           <Header></Header>
             <Routes>
               <Route path='/login' element={<Login/>}/>
-              <Route path='/register' element={<Register/>}/>
               <Route element={<Guard></Guard>}>
                 <Route path='/' element={<Home/>}/>
-                <Route path='/utils' element={<Utils/>}/>
-                <Route path='/create' element={<Create/>}/>
-                <Route path='/catalog/:id/:category' element={<Details/>}/>
-                <Route path='/profile' element={<Profile/>}/>
-                <Route path='/edit/:id/:category' element={<Edit/>}/>
-                <Route path='/order/:id' element={<Print/>}/>
-                <Route path='/order/edit/:id' element={<OrderEdit/>}/>
                 <Route path='/cart' element={<Cart/>}/>
-                <Route path='/stock' element={<Stock/>}/>
+                <Route path='/order/:id' element={<Print/>}/>
+                <Route path='/utils' element={<Utils/>}/>
+                <Route path='/profile' element={<Profile/>}/>
+                <Route path='/catalog/:id/:category' element={<Details/>}/>
+                <Route element={<AdminGuard></AdminGuard>}>
+                  <Route path='/register' element={<Register/>}/>
+                  <Route path='/create' element={<Create/>}/>
+                  <Route path='/edit/:id/:category' element={<Edit/>}/>
+                  <Route path='/order/edit/:id' element={<OrderEdit/>}/>
+                  <Route path='/stock' element={<Stock/>}/>
+                </Route>
               </Route>
             </Routes>
           <Footer></Footer>

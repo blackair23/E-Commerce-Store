@@ -9,7 +9,6 @@ export const Guard = () => {
     useEffect(() => {
         if(!user?._id){
             navigate('/login');
-            // return
         }
     }, [user, navigate]);
 

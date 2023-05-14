@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import style from './Profile.module.css';
-import { collection, deleteDoc, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
@@ -14,7 +14,7 @@ export const Profile = () => {
 
     useEffect(() => {
         if(user.role === 'admin'){
-            q = ref;
+            q = query(ref, orderBy('timestamp', 'desc'));
         } else {
             q = query(ref, where('userId', '==', user._id)) 
         }

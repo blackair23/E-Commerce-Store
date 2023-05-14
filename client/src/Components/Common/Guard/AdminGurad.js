@@ -7,7 +7,7 @@ export const AdminGuard = () => {
     const { user } = useContext(AuthContext);
 
     useEffect(() => {
-        if(user.role === "admin"){
+        if(user.role !== "admin"){
             navigate('/');
         }
     }, [user, navigate]);
