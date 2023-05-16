@@ -91,7 +91,7 @@ export const Print = () => {
                 {/* eslint-disable  */}
                     {products.length > 0 ? 
                     products.map((p, i) => {
-                        console.log('---------map---------',p )
+                        // console.log('---------map---------',p )
                         let index = '';
                         let startNumber = Number(p.startNumber);
                         let usedToNow = 0;
@@ -100,14 +100,14 @@ export const Print = () => {
                             index = p.array.findIndex(object => {
                                 return object.id === id;
                             });
-                            console.log('---------documents---------',index )
+                            // console.log('---------documents---------',index )
                             for (let i = 0; i <= index; i++) {
                                 usedToNow += Number(p.array[i].quantity);
                                 if(i === index - 1){
-                                    console.log(i , '<==>', index-1)
-                                    from = Number(usedToNow)
+                                    // console.log(i , '<==>', index-1)
+                                    from = Number(usedToNow + 1)
                                 }
-                                console.log(usedToNow);
+                                // console.log(usedToNow);
                             }
                         // }
                         let currentQuantity = p.array[index].quantity;

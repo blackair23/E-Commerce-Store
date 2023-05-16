@@ -20,7 +20,7 @@ export const OrderEdit = () => {
         getDoc(ref)
             .then((res) => {
                 let data = res.data();
-                console.log('data ->', data);
+                // console.log('data ->', data);
                 setOrder(data);
             })
             .catch ((err) => {
@@ -67,11 +67,11 @@ export const OrderEdit = () => {
     //     console.log('submit')
     // };
     const handleDelete = async (prodId) => {
-        console.log(prodId)
+        // console.log(prodId)
 
         let currentProd = products.filter((p) => p._id === prodId);
         let deleted = currentProd[0].array.filter((o) => o.id !== id);
-        console.log(deleted);
+        // console.log(deleted);
 
         try {
             const ref = doc(db, currentProd[0].product, prodId);
@@ -97,7 +97,7 @@ export const OrderEdit = () => {
     const handleEdit = (prodId) => {
         setProdId(prodId);
         onBtnClick("edit");
-        console.log('edit', prodId);
+        // console.log('edit', prodId);
     };
 
     const [openModal, setModal] = useState({modal: null, state: false});

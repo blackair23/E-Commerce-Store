@@ -18,10 +18,10 @@ export const Login = () => {
 
     const singIn = (e) => {
         e.preventDefault();
-        console.log(email, password);
+        // console.log(email, password);
         signInWithEmailAndPassword(auth, email.trim(), password.trim())
             .then((res) => {
-                console.log(res)
+                // console.log(res)
                 userLogin(res);
                 getDoc(doc(db, 'users', res.user.uid))
                     .then((res) => {

@@ -10,13 +10,16 @@ export const Profile = () => {
     const { user } = useContext(AuthContext);
     const [orders, setOrders] = useState(null);
     const ref = collection(db, 'orders');
+    // const [admin, setAdmin] = useState(query(ref, orderBy('timestamp', 'desc')));
     let q = ''; 
 
     useEffect(() => {
         if(user.role === 'admin'){
             q = query(ref, orderBy('timestamp', 'desc'));
+            // setAdmin(query(ref, orderBy('timestamp', 'desc')));
         } else {
             q = query(ref, where('userId', '==', user._id)) 
+            // setAdmin(query(ref, where('userId', '==', user._id)));
         }
         getDocs(q)
             .then((res) => {

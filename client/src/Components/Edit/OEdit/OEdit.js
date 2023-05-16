@@ -4,28 +4,28 @@ import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../../config/firebase';
 import swal from 'sweetalert';
 export const OEdit = ({orderId, products, prodId, onClose}) => {
-    console.log(orderId, '-',products,'\n',prodId, '-')
+    // console.log(orderId, '-',products,'\n',prodId, '-')
     const [quantity, setQuantity] = useState('');
     const [currentProd, setCurProd] = useState(products.filter((p) => p._id === prodId));
     const [currentOrder, setCurOrd] = useState(currentProd[0].array.filter((o) => o.id === orderId));
 
     useEffect(() => {
-       console.log('currentProd -->',currentProd);
-       console.log('currentOrder -->',currentOrder);
+    //    console.log('currentProd -->',currentProd);
+    //    console.log('currentOrder -->',currentOrder);
        setQuantity(currentOrder[0].quantity);
     }, [orderId, products, prodId])
 
 
     const onSubmit = async (e) => {
         e.preventDefault()
-        console.log('submit', quantity);
+        // console.log('submit', quantity);
         let index = currentProd[0].array.findIndex((obj) => obj.id === orderId);
-        console.log(index);
+        // console.log(index);
         // console.log(currentProd[0].array[index]);
-        console.log('before->', currentProd[0].array[index]);
+        // console.log('before->', currentProd[0].array[index]);
         currentProd[0].array[index].quantity = Number(quantity);
-        console.log('after->', currentProd[0].array[index]);
-        console.log(currentProd[0]);
+        // console.log('after->', currentProd[0].array[index]);
+        // console.log(currentProd[0]);
         let change = currentProd[0].array;
 
         try {

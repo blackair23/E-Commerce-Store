@@ -16,7 +16,7 @@ export const Stock = () => {
         getDocs(refUtil)
             .then((res) => {
                 const filterdData = res.docs.map((doc) => ({...doc.data(), _id: doc.id}));
-                console.log(filterdData);
+                // console.log(filterdData);
                 setUtils(filterdData)
             })
             .catch((err) => {
@@ -28,7 +28,7 @@ export const Stock = () => {
         getDocs(refAwrd)
             .then((res) => {
                 const filterdData = res.docs.map((doc) => ({...doc.data(), _id: doc.id}))
-                console.log(filterdData);
+                // console.log(filterdData);
                 setAwards(filterdData)
             })
             .catch((err) => {
