@@ -40,20 +40,21 @@ export const Header = () => {
             <nav>
                 {/* eslint-disable-next-line */}
                 <ul role="list">
-                    {user.role === "admin" && 
-                    <li><Link to='/create'>Create</Link></li>
-                    }
-                    {/* {user.role === "" && 
-                    <li><Link to='/create'>Create</Link></li>
-                    } */}
                     <li><Link to='/utils'>Utils</Link></li>
                     <li><Link to='/'>Awards</Link></li>
+                    <li><Link to='/conditions'>Conditions</Link></li>
+                    {user.role === "admin" &&
+                    <>
+                    <li><Link to='/create'>Create</Link></li>
+                    <li><Link to='/stock'>Stock</Link></li>
+                    </>
+                    }
                 </ul>
             </nav>
             <div className={style.user}>
                 {/* eslint-disable-next-line */}
                 <ul role="list">
-                    <li><i className="fa-solid fa-magnifying-glass"></i></li>
+                    {/* <li><i className="fa-solid fa-magnifying-glass"></i></li> */}
                     <Link to='/cart' className={style.shopping}><li><i className="fa-solid fa-cart-shopping"></i></li>{cart.length > 0 ? <div className={style.badge}>{cart.reduce((a, c) => a + c.quantity, 0)}</div> : ""}</Link>
                     <Link to='/profile'><button className={style.orderBtn}>Orders</button></Link>
                     <button onClick={logOut} className={style.profile}>Logout</button>

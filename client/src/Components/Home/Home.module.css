@@ -1,3 +1,139 @@
 #home{
     margin: 30px;
 }
+
+
+
+/* Style the container for filter buttons */
+/* .filterContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  
+
+  .filterButton {
+    padding: 8px 16px;
+    background-color: #9da1a5;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .filterButton:hover {
+    background-color: #0056b3;
+  }
+  
+
+  .clearFilterButton {
+    padding: 8px 16px;
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .clearFilterButton:hover {
+    background-color: #d32f2f;
+  }
+
+
+  @media (max-width: 768px) {
+    .filter-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  } */
+  .filterContainer {
+    /* border: 1px solid black; */
+    display: flex;
+    width: fit-content;
+    /* margin: ; */
+    flex-wrap: wrap;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    margin-top: 10px;
+  }
+  
+  /* Style for the filter menu */
+  .filterMenu {
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+
+    width: 100%;
+    max-width: 200px;
+    position: relative;
+  }
+  
+  /* Style for the menu toggle button */
+  .menuToggle {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  
+  .menuToggle:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Style for the menu content (filter buttons) */
+  .menuContentClosed {
+    display: none;
+    overflow: hidden;
+    transition: max-height 0.3s;
+  }
+  
+  .menuContentOpen {
+    display: block;
+    overflow: hidden;
+    max-height: 600px; /* Set the desired max height */
+    transition: max-height 0.3s;
+  }
+  
+  /* Style for the filter buttons */
+  .filterButton {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+  
+  .filterButton:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Style for the Clear Filter button */
+  .clearFilterButton {
+    padding: 8px 16px;
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  .clearFilterButton:hover {
+    background-color: #d32f2f;
+  }

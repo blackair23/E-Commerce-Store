@@ -74,11 +74,13 @@ ul li:not(:last-child){
 }
 .shopping{
     margin: 0 25px;
+    display: flex;
 }
 .badge{
-    position: absolute;
-    top: 20px;
-    right: 225px;
+    position: relative;
+    /* position: absolute; */
+    top: -15px;
+    right: 25px;
     background-color: rgb(190, 84, 84);
     color: #fff;
     border-radius: 50%;

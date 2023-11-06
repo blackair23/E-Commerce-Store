@@ -22,6 +22,7 @@ import { Edit } from './Components/Edit/ProductEdit/Edit';
 import { OrderEdit } from './Components/Edit/OrderEdit/OrderEdit';
 import { Stock } from './Components/Stock/Stock';
 import { AdminGuard } from './Components/Common/Guard/AdminGurad';
+import { Filter } from './Components/Filter/Filter';
 
 function App() {
 
@@ -73,6 +74,7 @@ function App() {
                 <Route path='/cart' element={<Cart/>}/>
                 <Route path='/order/:id' element={<Print/>}/>
                 <Route path='/utils' element={<Utils/>}/>
+                <Route path='/conditions' element={<Filter/>}/>
                 <Route path='/profile' element={<Profile/>}/>
                 <Route path='/catalog/:id/:category' element={<Details/>}/>
                 <Route element={<AdminGuard></AdminGuard>}>

@@ -6,8 +6,8 @@ import swal from 'sweetalert';
 export const OEdit = ({orderId, products, prodId, onClose}) => {
     // console.log(orderId, '-',products,'\n',prodId, '-')
     const [quantity, setQuantity] = useState('');
-    const [currentProd, setCurProd] = useState(products.filter((p) => p._id === prodId));
-    const [currentOrder, setCurOrd] = useState(currentProd[0].array.filter((o) => o.id === orderId));
+    const [currentProd, setCurProd] = useState(products.filter((p) => p._id === prodId)); // eslint-disable-line
+    const [currentOrder, setCurOrd] = useState(currentProd[0].array.filter((o) => o.id === orderId));// eslint-disable-line
 
     useEffect(() => {
     //    console.log('currentProd -->',currentProd);
@@ -47,11 +47,11 @@ export const OEdit = ({orderId, products, prodId, onClose}) => {
         <div className={style.backdrop} onClick={onClose}></div>
             <div className={style.formpopup}>
                 <div className={style.formpart}>
-                    <button onClick={onClose} className="close-btn"><i className="fa-solid fa-xmark"></i></button>
+                    <button onClick={onClose} className={style.closeBtn}><i className="fa-solid fa-xmark"></i></button>
                     <form onSubmit={onSubmit}>
                         <h2>Edit</h2>
-                        <div className="form-element">
-                            <label htmlFor="quantity">Quantity</label>
+                        <div className={style.formElement}>
+                            <label htmlFor="quantity">Quantity:</label>
                             <input type="text" id="quantity" name="quantity" placeholder="Enter quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)}/>
                         </div>
                         <input className="btn primary-btn" type="submit" value="Edit"/>
